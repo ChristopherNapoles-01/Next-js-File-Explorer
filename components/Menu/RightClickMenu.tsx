@@ -1,5 +1,5 @@
 import { FC, MouseEvent } from "react";
-import PositionInterface from "./PositionInterface";
+import PositionInterface from "./Interface/PositionInterface";
 import {menuItems} from "./Constants/MenuItems";
 import ItemInterface from "../DragAndDrop/Interface/ItemInterface";
 import { UniqueIdentifier } from "@dnd-kit/core";

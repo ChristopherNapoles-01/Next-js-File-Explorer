@@ -1,7 +1,7 @@
 'use client';
 import Draggable from "./DragAndDrop/Draggable";
 import Item from './Item';
-import PositionInterface from './Menu/PositionInterface';
+import PositionInterface from './Menu/Interface/PositionInterface';
 import {MouseEvent, useEffect, useState } from 'react';
 import RightClickMenu from "./Menu/RightClickMenu";
 import ItemInterface from "./DragAndDrop/Interface/ItemInterface";
