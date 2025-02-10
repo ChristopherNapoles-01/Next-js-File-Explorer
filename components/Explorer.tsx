@@ -4,15 +4,13 @@ import {
     useSensors, 
     PointerSensor, 
     useSensor,
-    DragEndEvent,
-    DragStartEvent,
-    UniqueIdentifier
 } from "@dnd-kit/core";
 import Droppable from "./DragAndDrop/Droppable";
 import Nodes from "./Nodes";
-import { FC, useState } from "react";
+import { FC } from "react";
 
 const Explorer : FC = () => {
+
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
@@ -21,21 +19,12 @@ const Explorer : FC = () => {
         })
     );
 
-    const handleDragEnd = (e : DragEndEvent) => {
-
-    }
-
-    const handleDragStart = (e : DragStartEvent) => {
-        
-    }
-
-
     return (
-        <div className="">
+        <div 
+            className=""
+        >
              <DndContext
                 sensors={sensors}
-                onDragStart={handleDragStart}
-                onDragEnd={handleDragEnd}
              >
                 <Droppable>
                     <Nodes/>

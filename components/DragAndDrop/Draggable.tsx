@@ -4,7 +4,7 @@ import {UniqueIdentifier, useDraggable} from '@dnd-kit/core';
 
 type DraggableTypes = {
     children : ReactNode,
-    id : UniqueIdentifier
+    id? : UniqueIdentifier
 }
 
 type itemPostion = {
@@ -14,7 +14,6 @@ type itemPostion = {
 
 
 const Draggable : FC<DraggableTypes> = ({children,id}) => {
-    const [positon, setPosition] = useState<itemPostion>({x : 100, y : 100});
     
     const {attributes, listeners, setNodeRef, transform} = useDraggable({
         id: id as UniqueIdentifier,

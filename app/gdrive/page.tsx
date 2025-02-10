@@ -3,7 +3,9 @@ import { FC } from "react";
 
 const Gdrive : FC = () => {
     return (
-        <div>
+        <div 
+            className="flex-1"
+        >
             <Explorer/>
         </div>
     );
