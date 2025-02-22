@@ -1,17 +1,30 @@
 import { FC } from "react"
-import ItemInterface from "../Interfaces/ItemInterface"
+import ItemPropsInterface from "@/Interfaces/ItemPropsInterface";
+import { UniqueIdentifier } from "@dnd-kit/core";
 
-const Item : FC<{data : ItemInterface}>= ({data}) => {
+
+const Item : FC<ItemPropsInterface>= ({data, refetch}) => {
+
+    const handleDoubleClick = (id : UniqueIdentifier) => {
+        refetch(id as string)
+    }
+
     return (
         <div className="flex flex-col items-center">
             {
                 data.mimeType.includes('folder') ?
                     <div>
-                        <img src="/open-folder.png" alt="folder" className="w-16 h-16" />
+                        <img 
+                            src="/open-folder.png" alt="folder" className="w-16 h-16" 
+                            onDoubleClick={() => handleDoubleClick(data.id)}
+                        />
+                        
                     </div>
                 :
                     <div>
-                        <img src="/document.png" alt="folder" className="w-16 h-16" />
+                        <img 
+                            src="/document.png" alt="folder" className="w-16 h-16"
+                        />
                     </div>
             }
             <div>{data.name}</div>

@@ -4,8 +4,9 @@ import initializeDrive from "@/hooks/GoogleApiHooks/initializeDrive";
 
 const Header : FC = () => {
     return (
-        <Link href={"/"}>
-            <div className="border-b-2 border-gray-500 p h-24 flex items-center">
+        <div className="border-b-2 border-gray-500 p h-24 flex justify-between">
+            <Link href={"/"}>
+                <div className="flex items-center mt-4">
                     <div className="ml-4">
                         <img src="/folder.png" alt="folder" className="w-16 h-16" />
                     </div>
@@ -13,8 +14,12 @@ const Header : FC = () => {
                     <div className="ml-2 font-bold text-lg">
                         Traverser
                     </div>
+                </div>
+            </Link>
+            <div className="flex items-center m-4">
+                Test
             </div>
-        </Link>
+        </div>
     );
 }
 

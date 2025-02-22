@@ -1,7 +1,9 @@
-import Image from "next/image";
+'use client'
 import Link from "next/link";
 
 export default function Home() {
+  localStorage.removeItem('currentFolder');
+
   return (
     <div className="flex-1 flex items-center justify-center">
       <div>

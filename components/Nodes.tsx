@@ -12,15 +12,16 @@ import useFetchFiles from "@/hooks/GoogleApiHooks/useFetchFiles";
 const Nodes = () => {
     const {
         isLoading,
-        data : fileData,
-        error
+        data,
+        error,
+        refetch
     } = useFetchFiles();
     
     const [showRightClickMenu, setShowRightClickMenu] = useState<boolean>(false);
     const [showRenameModal, setShowRenameModal] = useState<boolean>(false);
     const [position, setPosition] = useState<PositionInterface>();
     const [itemData, setItemData] = useState<ItemInterface | null>();
-    const [data,setData] = useState<ItemInterface[]>([]);
+    // const [data,setData] = useState<ItemInterface[]>([]);
 
     const handleContextMenu = (e: MouseEvent<HTMLDivElement>, type : string, data? : ItemInterface) => {
         e.preventDefault();
@@ -39,17 +40,17 @@ const Nodes = () => {
     }
 
     const handleFileDelete = () => {
-        setData(data.filter((d) => d.id != itemData?.id));
+        // setData(data.filter((d) => d.id != itemData?.id));
         setShowRightClickMenu(false);
     }
 
     const renameFile = (name : string) => {
-        setData(data.map((d) => {
-            if (d.id == itemData?.id) {
-                d.name = name;
-            }
-            return d;
-        }));
+        // setData(data.map((d) => {
+        //     if (d.id == itemData?.id) {
+        //         d.name = name;
+        //     }
+        //     return d;
+        // }));
 
         setShowRightClickMenu(false);
     }
@@ -58,9 +59,9 @@ const Nodes = () => {
         !showRightClickMenu && setItemData(null);
     }, [showRightClickMenu]);
 
-    useEffect(() => {
-        setData(fileData);
-    }, [isLoading]);
+    // useEffect(() => {
+    //     setData(fileData);
+    // }, [isLoading]);
 
     console.log(data)
 
@@ -75,14 +76,17 @@ const Nodes = () => {
                     </div>
             }
             {
-                data?.map((d : ItemInterface) => (
+                !isLoading && data?.map((d : ItemInterface) => (
                     <div
                         key={d.id}
                         className="m-4"
                         onContextMenu={(e) => handleContextMenu(e,'item',d)}
                     >
                         <Draggable id={d.id}>
-                           <Item data={d}/>
+                           <Item 
+                                data={d}
+                                refetch={refetch}
+                            />
                         </Draggable>
                     </div>
                 ))

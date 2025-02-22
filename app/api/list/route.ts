@@ -2,10 +2,11 @@ import initializeDrive from "@/hooks/GoogleApiHooks/initializeDrive"
 import { gdriveFolderId } from "@/config/googleConfig";
 
 
-const GET = async () => {
+const GET = async (req : Request) => {
     try {
         const drive = initializeDrive();
-        const folderId = gdriveFolderId; 
+        const url = new URL(req.url);
+        const folderId = url.searchParams.get("folder_id") ?? '';
 
         if (!drive) {
             throw new Error("Drive failed to initialize");
@@ -25,7 +26,7 @@ const GET = async () => {
     } 
     catch(error) {
         return Response.json( 
-            { error: (error as Error).message, code: 400 },
+            { error: (error as Error).message },
             { status: 400 }
         );
     }
