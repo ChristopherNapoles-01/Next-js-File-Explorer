@@ -57,13 +57,13 @@ const RightClickMenu : FC<EventItems> = ({
                 onContextMenu={handleContextMenu}
             >
             <ul className="py-2">
-                {menuItems.map((item) => (
+                {menuItems?.map((item) => (
                     <li 
                         key={item.id}
                         onClick={() => handleMenuItemClick(item)}
                         className="px-4 py-2 hover:bg-gray-400 cursor-pointer flex items-center space-x-2"
                     >
-                        <span className={`w-4 h-4 ${item.color} rounded-full`}></span>
+                        <span className={`w-4 h-4 ${item.color} rounded-full`}> </span>
                         <span>{item.label}</span>
                     </li>
                 ))}

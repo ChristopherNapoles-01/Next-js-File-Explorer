@@ -7,6 +7,8 @@ import RightClickMenu from "./Menu/RightClickMenu";
 import ItemInterface from "../Interfaces/ItemInterface";
 import RenameModal from "./Menu/RenameModal";
 import useFetchFiles from "@/hooks/GoogleApiHooks/useFetchFiles";
+import useDeleteFiles from "@/hooks/GoogleApiHooks/useDeleteFiles";
+import useUpdateFiles from "@/hooks/GoogleApiHooks/useUpdateFile";
 
 
 const Nodes = () => {
@@ -21,7 +23,9 @@ const Nodes = () => {
     const [showRenameModal, setShowRenameModal] = useState<boolean>(false);
     const [position, setPosition] = useState<PositionInterface>();
     const [itemData, setItemData] = useState<ItemInterface | null>();
-    // const [data,setData] = useState<ItemInterface[]>([]);
+
+    const { deleteFile } = useDeleteFiles(); 
+    const { updateFile, isUpdating } = useUpdateFiles();
 
     const handleContextMenu = (e: MouseEvent<HTMLDivElement>, type : string, data? : ItemInterface) => {
         e.preventDefault();
@@ -40,43 +44,34 @@ const Nodes = () => {
     }
 
     const handleFileDelete = () => {
-        // setData(data.filter((d) => d.id != itemData?.id));
+        deleteFile(itemData?.id as string)
+        refetch();
         setShowRightClickMenu(false);
     }
 
-    const renameFile = (name : string) => {
-        // setData(data.map((d) => {
-        //     if (d.id == itemData?.id) {
-        //         d.name = name;
-        //     }
-        //     return d;
-        // }));
-
+    const renameFile = async (name : string) => {
         setShowRightClickMenu(false);
+        const result = await updateFile(itemData?.id as string, name);
+        refetch();
     }
 
     useEffect(() => {
         !showRightClickMenu && setItemData(null);
     }, [showRightClickMenu]);
 
-    // useEffect(() => {
-    //     setData(fileData);
-    // }, [isLoading]);
-
-    console.log(data)
 
     return (
         <div 
             className="h-full flex"
         >
             {
-                isLoading && 
+                (isUpdating || isLoading) && 
                     <div>
                         Loading ...
                     </div>
             }
             {
-                !isLoading && data?.map((d : ItemInterface) => (
+                (!isUpdating && !isLoading) && data?.map((d : ItemInterface) => (
                     <div
                         key={d.id}
                         className="m-4"
