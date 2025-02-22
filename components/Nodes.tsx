@@ -1,31 +1,26 @@
 'use client';
 import Draggable from "./DragAndDrop/Draggable";
 import Item from './Item';
-import PositionInterface from './Menu/Interface/PositionInterface';
+import PositionInterface from '../Interfaces/PositionInterface';
 import {MouseEvent, useEffect, useState } from 'react';
 import RightClickMenu from "./Menu/RightClickMenu";
-import ItemInterface from "./DragAndDrop/Interface/ItemInterface";
+import ItemInterface from "../Interfaces/ItemInterface";
 import RenameModal from "./Menu/RenameModal";
+import useFetchFiles from "@/hooks/GoogleApiHooks/useFetchFiles";
+
 
 const Nodes = () => {
-
+    const {
+        isLoading,
+        data : fileData,
+        error
+    } = useFetchFiles();
+    
     const [showRightClickMenu, setShowRightClickMenu] = useState<boolean>(false);
     const [showRenameModal, setShowRenameModal] = useState<boolean>(false);
     const [position, setPosition] = useState<PositionInterface>();
     const [itemData, setItemData] = useState<ItemInterface | null>();
-    const [data,setData] = useState<ItemInterface[]>([
-        {
-            id : 1,
-            name : "test1",
-            type : "file"
-    
-        },
-        {
-            id : 2,
-            name : "test2",
-            type: "folder"
-        }
-    ]);
+    const [data,setData] = useState<ItemInterface[]>([]);
 
     const handleContextMenu = (e: MouseEvent<HTMLDivElement>, type : string, data? : ItemInterface) => {
         e.preventDefault();
@@ -63,12 +58,24 @@ const Nodes = () => {
         !showRightClickMenu && setItemData(null);
     }, [showRightClickMenu]);
 
+    useEffect(() => {
+        setData(fileData);
+    }, [isLoading]);
+
+    console.log(data)
+
     return (
         <div 
             className="h-full flex"
         >
             {
-                data.map((d : ItemInterface) => (
+                isLoading && 
+                    <div>
+                        Loading ...
+                    </div>
+            }
+            {
+                data?.map((d : ItemInterface) => (
                     <div
                         key={d.id}
                         className="m-4"
@@ -82,14 +89,14 @@ const Nodes = () => {
             }
             {
                 showRightClickMenu &&
-                <div>
-                    <RightClickMenu
-                        position = {position}
-                        setMenu = {setMenu}
-                        handleFileDelete = {handleFileDelete}
-                        handleFileRename = {handleFileRename}
-                    />
-                </div>
+                    <div>
+                        <RightClickMenu
+                            position = {position}
+                            setMenu = {setMenu}
+                            handleFileDelete = {handleFileDelete}
+                            handleFileRename = {handleFileRename}
+                        />
+                    </div>
             }
             {
                 showRenameModal &&
@@ -99,6 +106,12 @@ const Nodes = () => {
                             handleFileRename = {handleFileRename}
                             renameFile = {renameFile}
                         />
+                    </div>
+            }
+            {
+                error && 
+                    <div>
+                        An Error Occurred
                     </div>
             }
         </div>

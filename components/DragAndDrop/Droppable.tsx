@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import {useDroppable} from '@dnd-kit/core';
-import NodeInterface from './Interface/NodeInterface';
+import NodeInterface from '../../Interfaces/NodeInterface';
 
 const Droppable : FC<NodeInterface> = (props) => {
   const {isOver, setNodeRef} = useDroppable({

@@ -2,7 +2,7 @@ import { UniqueIdentifier } from "@dnd-kit/core";
 
 interface ItemInterface {
     id : UniqueIdentifier,
-    type : string,
+    mimeType : string,
     name : string
 }
 

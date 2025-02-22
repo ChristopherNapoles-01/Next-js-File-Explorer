@@ -1,6 +1,6 @@
 import { FC, MouseEvent } from "react";
-import PositionInterface from "./Interface/PositionInterface";
-import {menuItems} from "./Constants/MenuItems";
+import PositionInterface from "../../Interfaces/PositionInterface";
+import { menuItems } from "@/Constants/MenuItems";
 
 type EventItems = {
     position? : PositionInterface,
