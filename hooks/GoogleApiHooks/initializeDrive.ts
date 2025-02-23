@@ -4,8 +4,6 @@ import { serviceCredentials } from '../../config/googleConfig';
 import { google } from 'googleapis';
 import { ALL_SCOPES } from '@/Constants/GoogleApiConstants';
 
-
-
 const initializeDrive = () => {
     try {
         if (!serviceCredentials) {

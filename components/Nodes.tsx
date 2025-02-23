@@ -51,7 +51,7 @@ const Nodes = () => {
 
     const renameFile = async (name : string) => {
         setShowRightClickMenu(false);
-        const result = await updateFile(itemData?.id as string, name);
+        await updateFile(itemData?.id as string, name);
         refetch();
     }
 
